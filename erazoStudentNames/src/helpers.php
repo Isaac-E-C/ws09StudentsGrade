@@ -12,11 +12,42 @@ function field_value(string $key, array $old): string
     return e($old[$key] ?? '');
 }
 
+function student_field(array|object $student, string $key, mixed $default = null): mixed
+{
+    if (is_array($student) || $student instanceof ArrayAccess) {
+        return $student[$key] ?? $default;
+    }
+
+    return $student->{$key} ?? $default;
+}
+
+function numeric_value(mixed $value): float
+{
+    if ($value instanceof MongoDB\BSON\Decimal128) {
+        return (float) (string) $value;
+    }
+
+    if ($value instanceof Stringable) {
+        $value = (string) $value;
+    }
+
+    if (is_int($value) || is_float($value) || is_numeric($value)) {
+        return (float) $value;
+    }
+
+    return 0.0;
+}
+
+function grade_value(array|object $student, string $key): float
+{
+    return numeric_value(student_field($student, $key, 0));
+}
+
 function grade_mean(array|object $student): float
 {
-    $unitOne = (float) ($student['UnitOneGrade'] ?? 0);
-    $unitTwo = (float) ($student['UnitTwoGrade'] ?? 0);
-    $unitThree = (float) ($student['UnitThreeGrade'] ?? 0);
+    $unitOne = grade_value($student, 'UnitOneGrade');
+    $unitTwo = grade_value($student, 'UnitTwoGrade');
+    $unitThree = grade_value($student, 'UnitThreeGrade');
 
     return round(($unitOne + $unitTwo + $unitThree) / 3, 2);
 }

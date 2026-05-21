@@ -21,6 +21,9 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progre
 
 COPY . .
 
+RUN set -eux; \
+    if [ -d Views/Students ] && [ ! -d Views/students ]; then mv Views/Students Views/students; fi
+
 EXPOSE 10000
 
 CMD sed -ri -e "s!Listen 80!Listen ${PORT:-10000}!g" /etc/apache2/ports.conf \

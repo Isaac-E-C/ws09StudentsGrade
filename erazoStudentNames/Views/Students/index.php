@@ -31,14 +31,14 @@
                     <?php foreach ($students as $student): ?>
                         <?php $passed = grade_passed($student); ?>
                         <tr>
-                            <td><?= e($student['FirstName'] ?? '') ?> <?= e($student['LastName'] ?? '') ?></td>
-                            <td><?= e($student['Email'] ?? '') ?></td>
-                            <td><?= e($student['City'] ?? '') ?></td>
-                            <td><?= e($student['PostalCode'] ?? '') ?></td>
-                            <td><?= e($student['CourseName'] ?? '') ?></td>
-                            <td><?= e(number_format((float) ($student['UnitOneGrade'] ?? 0), 2, '.', '')) ?></td>
-                            <td><?= e(number_format((float) ($student['UnitTwoGrade'] ?? 0), 2, '.', '')) ?></td>
-                            <td><?= e(number_format((float) ($student['UnitThreeGrade'] ?? 0), 2, '.', '')) ?></td>
+                            <td><?= e(student_field($student, 'FirstName', '')) ?> <?= e(student_field($student, 'LastName', '')) ?></td>
+                            <td><?= e(student_field($student, 'Email', '')) ?></td>
+                            <td><?= e(student_field($student, 'City', '')) ?></td>
+                            <td><?= e(student_field($student, 'PostalCode', '')) ?></td>
+                            <td><?= e(student_field($student, 'CourseName', '')) ?></td>
+                            <td><?= e(number_format(grade_value($student, 'UnitOneGrade'), 2, '.', '')) ?></td>
+                            <td><?= e(number_format(grade_value($student, 'UnitTwoGrade'), 2, '.', '')) ?></td>
+                            <td><?= e(number_format(grade_value($student, 'UnitThreeGrade'), 2, '.', '')) ?></td>
                             <td><?= e(number_format(grade_mean($student), 2, '.', '')) ?></td>
                             <td>
                                 <span class="status-pill <?= $passed ? 'pass' : 'fail' ?>">
