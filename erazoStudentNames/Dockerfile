@@ -2,21 +2,17 @@ FROM php:8.3-apache
 
 WORKDIR /var/www/html
 
+COPY --from=mlocati/php-extension-installer:2 /usr/bin/install-php-extensions /usr/local/bin/
+
+RUN install-php-extensions mongodb
+
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y --no-install-recommends \
-        $PHPIZE_DEPS \
-        libssl-dev \
-        pkg-config \
-        unzip \
-        git; \
-    pecl install mongodb; \
-    docker-php-ext-enable mongodb; \
+    apt-get install -y --no-install-recommends unzip git; \
     a2enmod rewrite; \
     sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf; \
     sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf; \
     sed -ri -e 's!AllowOverride None!AllowOverride All!g' /etc/apache2/apache2.conf; \
-    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $PHPIZE_DEPS; \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
