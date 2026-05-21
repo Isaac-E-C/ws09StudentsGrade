@@ -1,7 +1,3 @@
-@{
-    ViewData["Title"] = "Error";
-}
-
 <section class="workspace">
     <div class="page-heading">
         <span>Server error</span>
