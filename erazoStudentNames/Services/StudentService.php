@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Services;
 
+use App\Models\Student;
 use MongoDB\Client;
 use MongoDB\Collection;
 

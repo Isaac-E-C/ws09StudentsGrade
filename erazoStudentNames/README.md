@@ -4,7 +4,7 @@ PHP app for registering students and three unit grades with MongoDB Atlas storag
 
 ## Features
 
-- PHP folder structure with `public`, `src`, and `views`.
+- PHP MVC folder structure with `Controllers`, `Models`, `Services`, `Views`, and `public`.
 - Server-side form post and table rendering, without API endpoints.
 - Vue 3 is used inside the form page for the live student mean and pass/fail preview.
 - MongoDB Atlas connection through `MONGODB_URI`.
