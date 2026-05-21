@@ -66,7 +66,7 @@ final class StudentsController
         extract($data, EXTR_SKIP);
 
         ob_start();
-        require dirname(__DIR__) . "/Views/{$view}.php";
+        require app_view_path($view);
         $content = ob_get_clean();
 
         require dirname(__DIR__) . '/Views/layout.php';

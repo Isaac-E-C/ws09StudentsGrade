@@ -38,7 +38,7 @@ try {
 
     extract(['title' => 'Error'], EXTR_SKIP);
     ob_start();
-    require dirname(__DIR__) . '/Views/students/error.php';
+    require app_view_path('students/error');
     $content = ob_get_clean();
     require dirname(__DIR__) . '/Views/layout.php';
 }

@@ -25,3 +25,25 @@ function grade_passed(array|object $student): bool
 {
     return grade_mean($student) >= 14;
 }
+
+function app_view_path(string $view): string
+{
+    $basePath = dirname(__DIR__) . '/Views';
+    $candidates = [
+        "{$basePath}/{$view}.php",
+    ];
+
+    if (str_contains($view, '/')) {
+        [$folder, $file] = explode('/', $view, 2);
+        $candidates[] = "{$basePath}/" . ucfirst($folder) . "/{$file}.php";
+        $candidates[] = "{$basePath}/" . strtolower($folder) . "/{$file}.php";
+    }
+
+    foreach (array_unique($candidates) as $candidate) {
+        if (is_file($candidate)) {
+            return $candidate;
+        }
+    }
+
+    throw new RuntimeException("View not found: {$view}");
+}
