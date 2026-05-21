@@ -9,10 +9,14 @@
 </head>
 <body>
     <header class="topbar">
-        <a class="brand" href="/">Student Grades</a>
+        <?php $currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/'; ?>
+        <a class="brand" href="/">
+            <span class="brand-mark">SG</span>
+            <span>Student Grades</span>
+        </a>
         <nav class="nav-menu" aria-label="Main navigation">
-            <a href="/">Student Form</a>
-            <a href="/students">Class Table</a>
+            <a class="<?= in_array($currentPath, ['/', '/students/create'], true) ? 'active' : '' ?>" href="/">Student Form</a>
+            <a class="<?= $currentPath === '/students' ? 'active' : '' ?>" href="/students">Class Table</a>
         </nav>
     </header>
 

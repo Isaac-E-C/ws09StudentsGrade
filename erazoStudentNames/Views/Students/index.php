@@ -11,6 +11,21 @@
     <?php if (count($students ?? []) === 0): ?>
         <div class="empty-state">No students have been registered yet.</div>
     <?php else: ?>
+        <div class="summary-grid">
+            <div class="summary-card">
+                <span>Registered students</span>
+                <strong><?= e(count($students)) ?></strong>
+            </div>
+            <div class="summary-card">
+                <span>Class mean</span>
+                <strong><?= e(number_format((float) $classMean, 2, '.', '')) ?></strong>
+            </div>
+            <div class="summary-card">
+                <span>Passing grade</span>
+                <strong>14.00</strong>
+            </div>
+        </div>
+
         <div class="table-shell">
             <table>
                 <thead>
